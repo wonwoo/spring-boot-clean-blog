@@ -21,7 +21,7 @@ public class PostController {
 
   @GetMapping("/{id}")
   public String findByPost(@PathVariable Long id, Model model) {
-    Post post = postService.findByIdAndYn(id, PostStatus.Y);
+    Post post = postService.findByIdAndStatus(id, PostStatus.Y);
     if(post == null){
       throw new NotFoundException(id + " not found");
     }
@@ -36,7 +36,7 @@ public class PostController {
 
   @GetMapping("/edit/{id}")
   public String editPost(@PathVariable Long id, Model model) {
-    Post post = postService.findByIdAndYn(id, PostStatus.Y);
+    Post post = postService.findByIdAndStatus(id, PostStatus.Y);
     if(post == null){
       throw new NotFoundException(id + " not found");
     }

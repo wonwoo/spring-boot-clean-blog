@@ -38,7 +38,8 @@ public class PostService {
     oldPost.setStatus(PostStatus.N);
   }
 
-  public Post findByIdAndYn(Long id, PostStatus status) {
+  @Transactional(readOnly = true)
+  public Post findByIdAndStatus(Long id, PostStatus status) {
     Post post = postRepository.findByIdAndStatus(id, status);
     if(post == null){
       throw new NotFoundException(id + " not found");
