@@ -1,7 +1,6 @@
 package me.wonwoo.post;
 
 import lombok.Data;
-import me.wonwoo.category.Category;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -12,9 +11,9 @@ import java.time.LocalDateTime;
 /**
  * Created by wonwoo on 2016. 8. 30..
  */
-@Entity
 @Data
 @EntityListeners(value = AuditingEntityListener.class)
+@Entity
 public class Post {
 
   @Id

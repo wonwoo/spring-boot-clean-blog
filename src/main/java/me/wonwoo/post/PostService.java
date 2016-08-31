@@ -19,7 +19,7 @@ public class PostService {
   }
 
   public Post updatePost(Long id, Post post) {
-    Post oldPost = postRepository.findByIdAndYn(id, PostStatus.Y);
+    Post oldPost = postRepository.findByIdAndStatus(id, PostStatus.Y);
     if(oldPost == null){
       throw new NotFoundException(id + " not found");
     }
@@ -31,7 +31,7 @@ public class PostService {
   }
 
   public void deletePost(Long id) {
-    Post oldPost = postRepository.findByIdAndYn(id, PostStatus.Y);
+    Post oldPost = postRepository.findByIdAndStatus(id, PostStatus.Y);
     if(oldPost == null){
       throw new NotFoundException(id + " not found");
     }
@@ -39,7 +39,7 @@ public class PostService {
   }
 
   public Post findByIdAndYn(Long id, PostStatus status) {
-    Post post = postRepository.findByIdAndYn(id, status);
+    Post post = postRepository.findByIdAndStatus(id, status);
     if(post == null){
       throw new NotFoundException(id + " not found");
     }
