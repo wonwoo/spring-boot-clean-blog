@@ -1,8 +1,7 @@
 package me.wonwoo.post;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import me.wonwoo.category.Category;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,6 +28,7 @@ public class Post {
   @Lob
   private String code;
 
+  @Enumerated(EnumType.STRING)
   private PostStatus status;
 
   private LocalDateTime regDate;
