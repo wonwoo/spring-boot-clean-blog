@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class CategoryService {
   private final CategoryRepository categoryRepository;
 
   public Category createCategory(Category category){
+    category.setRegDate(LocalDateTime.now());
     return categoryRepository.save(category);
   }
 
@@ -36,14 +38,18 @@ public class CategoryService {
   }
 
   @Transactional(readOnly = true)
-  @Cacheable("spring.blog.category")
+//  @Cacheable("spring.blog.category")
   public Page<Category> findAll(Pageable pageable) {
     return categoryRepository.findAll(pageable);
   }
 
   @Transactional(readOnly = true)
-  @Cacheable("spring.blog.category")
+//  @Cacheable("spring.blog.category")
   public List<Category> findAll() {
     return categoryRepository.findAll();
+  }
+
+  public Category findOne(Long id) {
+    return categoryRepository.findOne(id);
   }
 }

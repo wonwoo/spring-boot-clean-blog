@@ -19,7 +19,6 @@ import javax.validation.Valid;
 @RequestMapping("/categories")
 public class CategoryController {
 
-  private final CategoryRepository categoryRepository;
   private final CategoryService categoryService;
 
   @GetMapping
@@ -35,7 +34,7 @@ public class CategoryController {
 
   @GetMapping("/{id}/edit")
   public String edit(@PathVariable Long id, Model model) {
-    model.addAttribute("categoryDto", categoryRepository.findOne(id));
+    model.addAttribute("categoryDto", categoryService.findOne(id));
     return "category/edit";
   }
 
@@ -57,7 +56,7 @@ public class CategoryController {
     return "redirect:/categories";
   }
 
-  @GetMapping("/{id}/delete")
+  @PostMapping("/{id}/delete")
   public String deleteCategory(@PathVariable Long id) {
     categoryService.delete(id);
     return "redirect:/categories";

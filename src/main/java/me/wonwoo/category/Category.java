@@ -1,6 +1,8 @@
 package me.wonwoo.category;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import me.wonwoo.post.Post;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,7 +16,7 @@ import java.util.List;
  * Created by wonwoo on 2016. 8. 15..
  */
 @Entity
-@Getter
+@Data
 public class Category {
 
   @Id
