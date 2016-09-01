@@ -5,6 +5,8 @@ import me.wonwoo.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by wonwoo on 2016. 8. 31..
  */
@@ -15,6 +17,7 @@ public class PostService {
   private final PostRepository postRepository;
 
   public Post createPost(Post post) {
+    post.setRegDate(LocalDateTime.now());
     return postRepository.save(post);
   }
 

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
  * Created by wonwoo on 2016. 8. 30..
  */
 @Data
-@EntityListeners(value = AuditingEntityListener.class)
 @Entity
 public class Post {
 
@@ -32,7 +31,6 @@ public class Post {
 
   private PostStatus status;
 
-  @CreatedDate
   private LocalDateTime regDate;
 
   Post(){
