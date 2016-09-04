@@ -41,7 +41,7 @@ public class CommentControllerTest {
     given(commentService.createComment(comment)).willReturn(comment);
 
     this.mvc.perform(post("/comments")
-      .param("postId","1")
+      .param("postId", "1")
       .param("content", "test"))
       .andExpect(status().isFound())
       .andExpect(header().string(HttpHeaders.LOCATION, "/posts/1"));

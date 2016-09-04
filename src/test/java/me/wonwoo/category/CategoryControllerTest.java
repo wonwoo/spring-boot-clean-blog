@@ -95,7 +95,7 @@ public class CategoryControllerTest {
     given(categoryService.createCategory(category)).willReturn(category);
 
     this.mvc.perform(post("/categories")
-      .param("name","spring"))
+      .param("name", "spring"))
       .andExpect(status().isFound())
       .andExpect(header().string(HttpHeaders.LOCATION, "/categories"));
   }
@@ -105,7 +105,7 @@ public class CategoryControllerTest {
     doNothing().when(categoryService).updateCategory(any());
 
     this.mvc.perform(post("/categories/{id}/edit", 1L)
-      .param("name","spring-boot"))
+      .param("name", "spring-boot"))
       .andExpect(status().isFound())
       .andExpect(header().string(HttpHeaders.LOCATION, "/categories"));
   }

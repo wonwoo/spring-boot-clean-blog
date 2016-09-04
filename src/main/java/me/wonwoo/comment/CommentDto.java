@@ -7,9 +7,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class CommentDto {
-    @NotNull
-    private Long postId;
 
-    @NotBlank
-    private String content;
+  @NotNull
+  private Long postId;
+
+  @NotBlank
+  private String content;
 }

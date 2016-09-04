@@ -40,7 +40,7 @@ public class CategoryController {
 
   @PostMapping
   public String createCategory(@ModelAttribute @Valid CategoryDto categoryDto, BindingResult bindingResult) {
-    if(bindingResult.hasErrors()){
+    if (bindingResult.hasErrors()) {
       return "category/new";
     }
     categoryService.createCategory(new Category(categoryDto.getId(), categoryDto.getName()));
@@ -49,7 +49,7 @@ public class CategoryController {
 
   @PostMapping("/{id}/edit")
   public String modifyCategory(@PathVariable Long id, @ModelAttribute @Valid CategoryDto categoryDto, BindingResult bindingResult) {
-    if(bindingResult.hasErrors()){
+    if (bindingResult.hasErrors()) {
       return "category/edit";
     }
     categoryService.updateCategory(new Category(id, categoryDto.getName()));

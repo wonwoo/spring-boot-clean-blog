@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class CommentService {
 
-    private final CommentRepository commentRepository;
+  private final CommentRepository commentRepository;
 
-    public Comment createComment(Comment comment){
-        comment.setRegDate(LocalDateTime.now());
-        return commentRepository.save(comment);
-    }
+  public Comment createComment(Comment comment) {
+    comment.setRegDate(LocalDateTime.now());
+    return commentRepository.save(comment);
+  }
 
-    public void deleteComment(Long commentId) {
-        commentRepository.delete(commentId);
-    }
+  public void deleteComment(Long commentId) {
+    commentRepository.delete(commentId);
+  }
 }

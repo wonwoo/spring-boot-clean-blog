@@ -44,17 +44,19 @@ public class Post {
   @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
   private List<Comment> comments;
 
-  Post(){
+  Post() {
   }
 
-  public Post(Long id){
+  public Post(Long id) {
     this.id = id;
   }
-  public Post(String title, PostStatus status){
+
+  public Post(String title, PostStatus status) {
     this.title = title;
     this.status = status;
   }
-  public Post(Long id, String title, String content, String code, PostStatus status){
+
+  public Post(Long id, String title, String content, String code, PostStatus status) {
     this.id = id;
     this.title = title;
     this.content = content;
@@ -62,14 +64,14 @@ public class Post {
     this.status = status;
   }
 
-  public Post(String title, String content, String code, PostStatus status){
+  public Post(String title, String content, String code, PostStatus status) {
     this.title = title;
     this.content = content;
     this.code = code;
     this.status = status;
   }
 
-  public Post(String title, String content, String code, PostStatus status, Category category){
+  public Post(String title, String content, String code, PostStatus status, Category category) {
     this.title = title;
     this.content = content;
     this.code = code;

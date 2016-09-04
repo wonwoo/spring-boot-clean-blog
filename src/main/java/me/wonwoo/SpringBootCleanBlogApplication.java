@@ -9,7 +9,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 @EntityScan(basePackageClasses = {SpringBootCleanBlogApplication.class, Jsr310JpaConverters.class})
 public class SpringBootCleanBlogApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootCleanBlogApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SpringBootCleanBlogApplication.class, args);
+  }
 }

@@ -21,7 +21,7 @@ public class CategoryService {
 
   private final CategoryRepository categoryRepository;
 
-  public Category createCategory(Category category){
+  public Category createCategory(Category category) {
     category.setRegDate(LocalDateTime.now());
     return categoryRepository.save(category);
   }
@@ -32,7 +32,7 @@ public class CategoryService {
 
   public void updateCategory(Category category) {
     Category oldCategory = categoryRepository.findOne(category.getId());
-    if(oldCategory != null){
+    if (oldCategory != null) {
       oldCategory.setName(category.getName());
     }
   }

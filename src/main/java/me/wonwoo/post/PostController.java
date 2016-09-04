@@ -23,7 +23,7 @@ public class PostController {
   @GetMapping("/{id}")
   public String findByPost(@PathVariable Long id, Model model) {
     Post post = postService.findByIdAndStatus(id, PostStatus.Y);
-    if(post == null){
+    if (post == null) {
       throw new NotFoundException(id + " not found");
     }
     model.addAttribute("post", post);
@@ -38,7 +38,7 @@ public class PostController {
   @GetMapping("/edit/{id}")
   public String editPost(@PathVariable Long id, Model model) {
     Post post = postService.findByIdAndStatus(id, PostStatus.Y);
-    if(post == null){
+    if (post == null) {
       throw new NotFoundException(id + " not found");
     }
     PostDto createPost = new PostDto();
@@ -54,7 +54,7 @@ public class PostController {
 
   @PostMapping
   public String createPost(@ModelAttribute @Valid PostDto createPost, BindingResult bindingResult, Model model) {
-    if(bindingResult.hasErrors()){
+    if (bindingResult.hasErrors()) {
       return "post/new";
     }
     Post post = new Post(createPost.getTitle(),
@@ -64,12 +64,12 @@ public class PostController {
       new Category(createPost.getCategoryId()));
     Post newPost = postService.createPost(post);
     model.addAttribute("post", newPost);
-    return "redirect:/posts/" +  newPost.getId();
+    return "redirect:/posts/" + newPost.getId();
   }
 
   @PostMapping("/{id}/edit")
   public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid PostDto createPost, BindingResult bindingResult) {
-    if(bindingResult.hasErrors()){
+    if (bindingResult.hasErrors()) {
       return "post/edit";
     }
     postService.updatePost(id, new Post(
@@ -79,11 +79,11 @@ public class PostController {
       PostStatus.Y,
       new Category(createPost.getCategoryId())
     ));
-    return "redirect:/posts/" +  id;
+    return "redirect:/posts/" + id;
   }
 
   @PostMapping("{id}/delete")
-  public String deletePost(@PathVariable Long id){
+  public String deletePost(@PathVariable Long id) {
     postService.deletePost(id);
     return "redirect:/#/";
   }
