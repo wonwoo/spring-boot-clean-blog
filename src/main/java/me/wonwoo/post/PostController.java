@@ -1,6 +1,7 @@
 package me.wonwoo.post;
 
 import lombok.RequiredArgsConstructor;
+import me.wonwoo.category.Category;
 import me.wonwoo.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,8 @@ public class PostController {
       throw new NotFoundException(id + " not found");
     }
     PostDto createPost = new PostDto();
-
+    createPost.setCategoryId(post.getCategory().getId());
+    createPost.setCategoryName(post.getCategory().getName());
     createPost.setTitle(post.getTitle());
     createPost.setCode(post.getCode());
     createPost.setContent(post.getContent());
@@ -58,7 +60,8 @@ public class PostController {
     Post post = new Post(createPost.getTitle(),
       createPost.getContent(),
       createPost.getCode(),
-      PostStatus.Y);
+      PostStatus.Y,
+      new Category(createPost.getCategoryId()));
     Post newPost = postService.createPost(post);
     model.addAttribute("post", newPost);
     return "redirect:/posts/" +  newPost.getId();
@@ -73,7 +76,8 @@ public class PostController {
       createPost.getTitle(),
       createPost.getContent(),
       createPost.getCode(),
-      PostStatus.Y
+      PostStatus.Y,
+      new Category(createPost.getCategoryId())
     ));
     return "redirect:/posts/" +  id;
   }

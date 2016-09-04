@@ -3,6 +3,8 @@ package me.wonwoo.post;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by wonwoo on 2016. 8. 31..
  */
@@ -16,4 +18,9 @@ public class PostDto {
   private String content;
 
   private String code;
+
+  @NotNull
+  private Long categoryId;
+
+  private String categoryName;
 }
