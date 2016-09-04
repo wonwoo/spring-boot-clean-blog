@@ -2,6 +2,7 @@ package me.wonwoo.category;
 
 
 import lombok.RequiredArgsConstructor;
+import me.wonwoo.exception.NotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,9 +33,10 @@ public class CategoryService {
 
   public void updateCategory(Category category) {
     Category oldCategory = categoryRepository.findOne(category.getId());
-    if (oldCategory != null) {
-      oldCategory.setName(category.getName());
+    if (oldCategory == null) {
+      throw new NotFoundException(category.getId() + " not found");
     }
+    oldCategory.setName(category.getName());
   }
 
   @Transactional(readOnly = true)
