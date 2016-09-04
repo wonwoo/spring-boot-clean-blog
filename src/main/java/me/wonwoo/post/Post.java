@@ -37,7 +37,6 @@ public class Post {
 
   private LocalDateTime regDate;
 
-  // FIXME: 2016. 9. 1. 추가
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "CATEGORY_ID")
   private Category category;
@@ -70,7 +69,6 @@ public class Post {
     this.status = status;
   }
 
-  // FIXME: 2016. 9. 1. 추가
   public Post(String title, String content, String code, PostStatus status, Category category){
     this.title = title;
     this.content = content;
