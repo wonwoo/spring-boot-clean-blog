@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * Created by wonwoo on 2016. 8. 15..
  */
-@Entity
 @Data
+@Entity
 public class Category {
 
   @Id
@@ -40,9 +40,5 @@ public class Category {
   public Category(Long id, String name){
     this.name = name;
     this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 }

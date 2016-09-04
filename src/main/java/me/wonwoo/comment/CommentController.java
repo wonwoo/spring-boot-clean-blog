@@ -20,12 +20,6 @@ import javax.validation.Valid;
 public class CommentController {
 
     private final CommentService commentService;
-    private final PostRepository postRepository;
-
-    @ModelAttribute
-    public Post post(@ModelAttribute CommentDto commentDto){
-        return postRepository.findOne(commentDto.getPostId());
-    }
 
     @PostMapping
     public String createComment(@ModelAttribute @Valid CommentDto commentDto, BindingResult bindingResult, Model model){

@@ -38,13 +38,11 @@ public class CategoryService {
   }
 
   @Transactional(readOnly = true)
-//  @Cacheable("spring.blog.category")
   public Page<Category> findAll(Pageable pageable) {
     return categoryRepository.findAll(pageable);
   }
 
   @Transactional(readOnly = true)
-//  @Cacheable("spring.blog.category")
   public List<Category> findAll() {
     return categoryRepository.findAll();
   }

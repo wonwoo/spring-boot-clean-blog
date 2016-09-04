@@ -2,12 +2,14 @@ package me.wonwoo.post;
 
 import lombok.Data;
 import me.wonwoo.category.Category;
+import me.wonwoo.comment.Comment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by wonwoo on 2016. 8. 30..
@@ -39,6 +41,9 @@ public class Post {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "CATEGORY_ID")
   private Category category;
+
+  @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+  private List<Comment> comments;
 
   Post(){
   }
