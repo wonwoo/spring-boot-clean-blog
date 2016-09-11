@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.thymeleaf.org/spring-data"
+      layout:decorator="layouts/main" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Clean Blog - Contact</title>
+</head>
+<body>
+<!-- Main Content -->
+    <div class="container" layout:fragment="content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-preview" th:each="post : ${posts.content}">
+                    <a th:href="@{'/posts/' + ${post.id}}">
+                        <h2 class="post-title" th:text="${post.title}">
+                        </h2>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> <strong th:text="${#temporals.format(post.regDate, 'yyyy-MM-dd')}"> </strong> category <strong th:text="${post.category.name}"></strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 5%">
+            <div class="col-lg-3 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div sd:pagination-summary="">info</div>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <nav class="pull-right">
+                    <ul class="pagination" sd:pagination="full">
+                        <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"></span></a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

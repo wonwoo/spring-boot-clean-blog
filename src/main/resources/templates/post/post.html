@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/main" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Clean Blog - Contact</title>
+</head>
+
+<body>
+    <div class="container" layout:fragment="content">
+        <div class="row">
+            <h1 class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1" style="margin-bottom:3%" th:text="${post.title}">
+            </h1>
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1" th:utext="${post.content}">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
