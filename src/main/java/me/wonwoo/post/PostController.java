@@ -2,6 +2,7 @@ package me.wonwoo.post;
 
 import lombok.RequiredArgsConstructor;
 import me.wonwoo.category.Category;
+import me.wonwoo.category.CategoryService;
 import me.wonwoo.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by wonwoo on 2016. 8. 30..
@@ -19,6 +21,12 @@ import javax.validation.Valid;
 public class PostController {
 
   private final PostService postService;
+  private final CategoryService categoryService;
+
+  @ModelAttribute("categories")
+  public List<Category> categories(){
+    return categoryService.findAll();
+  }
 
   @GetMapping("/{id}")
   public String findByPost(@PathVariable Long id, Model model) {

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Markdown Editor</title>
+    <script th:src="@{/markdown/js/markdown-it.js}"></script>
+    <script th:src="@{/markdown/js/markdown-it-footnote.js}"></script>
+    <script th:src="@{/markdown/js/highlight.pack.js}"></script>
+    <script th:src="@{/codemirror/lib/codemirror.js}"></script>
+    <script th:src="@{/codemirror/overlay.js}"></script>
+    <script th:src="@{/codemirror/markdown/markdown.js}"></script>
+    <script th:src="@{/codemirror/gfm/gfm.js}"></script>
+    <script th:src="@{/markdown/js/rawinflate.js}"></script>
+    <script th:src="@{/markdown/js/rawdeflate.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/codemirror/css/base16-light.css}"/>
+    <link rel="stylesheet" th:href="@{/codemirror/lib/codemirror.css}"/>
+    <link rel="stylesheet" th:href="@{/markdown/css/github-gist.css}" />
+    <link rel="stylesheet" th:href="@{/css/post.css}" />
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<form class="form-horizontal well bs-component col-lg-10 col-lg-offset-1" th:action="@{/posts}"
+      th:object="${postDto}" method="post" th:id="post">
+    <fieldset>
+        <div class="form-group" th:classappend="(${#fields.hasErrors('title')}? ' has-error')">
+            <label for="title" class="col-lg-2 control-label">Title</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="title" name="title" th:field="*{title}"
+                       placeholder="Title"/>
+                <span class="help-block" th:if="${#fields.hasErrors('title')}"
+                      th:errors="*{title}">Incorrect title</span>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="(${#fields.hasErrors('categoryId')}? ' has-error')">
+            <label class="col-lg-2 control-label">categories</label>
+            <div class="btn-group" data-toggle="buttons" th:each="category : ${categories}">
+                <label class="btn btn-primary active">
+                    <input th:onclick="'changeCategory(\'' + ${category.name} + '\')'" name="categoryId" type="radio" th:text="${category.name}" th:value="${category.id}" />
+                </label>
+            </div>
+            <span class="help-block" style="text-align: center;" th:if="${#fields.hasErrors('categoryId')}"
+                  th:errors="*{categoryId}">Incorrect title</span>
+
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">category</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="categoryName" disabled="disabled"/>
+            </div>
+        </div>
+
+        <div id="in">
+            <input type="hidden" id="content" name="content" th:field="*{content}"/>
+            <input type="hidden" id="code" th:field="*{code}" />
+        </div>
+        <div id="out" >
+        </div>
+        <div id="messageContent">
+            <label for="content" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
+        </div>
+        <div id="menu">
+            <input class="btn btn-primary" type="button" value="Submit" onclick="saveAsHtml()"/>
+        </div>
+    </fieldset>
+</form>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    function deletePost(postId){
+        document.getElementById("post").action = "/posts/"+postId +"/delete";
+        document.getElementById("post").submit();
+    }
+    /*]]>*/
+</script>
+<script th:src="@{/js/post.js}"></script>
+</body>
+</html>
