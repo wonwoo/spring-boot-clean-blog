@@ -11,7 +11,6 @@
     <script th:src="@{/codemirror/gfm/gfm.js}"></script>
     <script th:src="@{/markdown/js/rawinflate.js}"></script>
     <script th:src="@{/markdown/js/rawdeflate.js}"></script>
-
     <link rel="stylesheet" th:href="@{/codemirror/css/base16-light.css}"/>
     <link rel="stylesheet" th:href="@{/codemirror/lib/codemirror.css}"/>
     <link rel="stylesheet" th:href="@{/markdown/css/github-gist.css}" />
@@ -64,15 +63,6 @@
         </div>
     </fieldset>
 </form>
-<script type="text/javascript" th:inline="javascript">
-    /*<![CDATA[*/
-
-    function deletePost(postId){
-        document.getElementById("post").action = "/posts/"+postId +"/delete";
-        document.getElementById("post").submit();
-    }
-    /*]]>*/
-</script>
 <script th:src="@{/js/post.js}"></script>
 </body>
 </html>
