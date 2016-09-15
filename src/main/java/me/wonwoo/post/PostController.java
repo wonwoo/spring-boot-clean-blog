@@ -3,6 +3,7 @@ package me.wonwoo.post;
 import lombok.RequiredArgsConstructor;
 import me.wonwoo.category.Category;
 import me.wonwoo.category.CategoryService;
+import me.wonwoo.comment.CommentDto;
 import me.wonwoo.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class PostController {
   }
 
   @GetMapping("/{id}")
-  public String findByPost(@PathVariable Long id, Model model) {
+  public String findByPost(@PathVariable Long id, Model model, @ModelAttribute CommentDto commentDto) {
     Post post = postService.findByIdAndStatus(id, PostStatus.Y);
     if (post == null) {
       throw new NotFoundException(id + " not found");

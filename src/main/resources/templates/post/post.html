@@ -5,6 +5,56 @@
 <head>
     <title>포스트</title>
     <link rel="stylesheet" th:href="@{/markdown/css/github-gist.css}" />
+    <style>
+        .comments .media-heading {
+            margin-top: 25px;
+        }
+
+        .comments .comment-info {
+            margin-left: 6px;
+            margin-top: 21px;
+        }
+
+        .comments .comment-info .btn {
+            font-size: 0.8em;
+        }
+
+        .comments .comment-info .fa {
+            line-height: 10px;
+        }
+
+        .comments .media-body p {
+            position: relative;
+            background: #F7F7F7;
+            padding: 15px;
+            margin-top: 50px;
+        }
+
+        .comments .media-body p::before {
+            background-color: #F7F7F7;
+            box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+            content: "\00a0";
+            display: block;
+            height: 30px;
+            left: 20px;
+            position: absolute;
+            top: -13px;
+            transform: rotate( 135deg );
+            width:  30px;
+        }
+
+        .white {
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        function deleteComment(postId, commentId){
+            document.getElementById("deleteComment").action = "/comments/"+postId + "/" + commentId;
+            document.getElementById("deleteComment").submit();
+        }
+        /*]]>*/
+    </script>
 </head>
 
 <body>
@@ -18,6 +68,40 @@
             <h1 class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1" style="margin-bottom:3%" th:text="${post.title}">
             </h1>
             <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1" th:utext="${post.content}">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 100px;">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h4 id="addComment">Leave a Comment:</h4>
+                <form  th:action="@{/comments}"
+                       th:object="${commentDto}" method="post" th:id="comment">
+                    <input type="hidden" th:value="${post.id}" id="postId" name="postId"/>
+                    <div class="well" th:classappend="(${#fields.hasErrors('content')}? ' has-error')">
+                        <input type="text" class="form-control input-lg" id="content" name="content"
+                               placeholder="content"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('content')}"
+                              th:errors="*{content}"></span>
+                        <ul class="pager" style="text-align:right;" >
+                            <li class="next">
+                                <button  type="submit" class="btn btn-primary">Submit</button>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+                <form th:object="${commentDto}" th:action="@{/}" method="post" th:id="deleteComment">
+                    <ul class="media-list comments" th:each="comment : ${post.comments}">
+                        <li class="media">
+                            <div class="media-body">
+                                <h5 class="media-heading pull-left">loneswan</h5>
+                                <div class="comment-info pull-left">
+                                    <div class="btn-default btn-xs" th:text="${#temporals.format(comment.regDate, 'yyyy-MM-dd')}"><i class="fa fa-clock-o"></i> Posted 3 weeks ago</div>
+                                </div>
+                                <span style="top: 18px;" th:onclick="'deleteComment(\'' + ${comment.post.id} + '\', \'' + ${comment.id} + '\');'" class="glyphicon glyphicon-remove" ></span>
+                                <p class="well" th:text="${comment.content}">This is really awesome snippet!</p>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>

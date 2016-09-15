@@ -3,6 +3,12 @@
       layout:decorator="layouts/main">
 <head>
     <title>카테고리</title>
+    <script type="text/javascript" th:inline="javascript">
+        function deleteCategory(categoryId){
+            document.getElementById("category").action = "/categories/"+categoryId +"/delete";
+            document.getElementById("category").submit();
+        }
+    </script>
 </head>
 <body>
 
@@ -28,12 +34,6 @@
             </div>
         </fieldset>
     </form>
-    <script type="text/javascript" th:inline="javascript">
-        function deleteCategory(categoryId){
-            document.getElementById("category").action = "/categories/"+categoryId +"/delete";
-            document.getElementById("category").submit();
-        }
-    </script>
 </div>
 </body>
 </html>

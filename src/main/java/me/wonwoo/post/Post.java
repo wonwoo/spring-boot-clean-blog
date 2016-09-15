@@ -1,6 +1,8 @@
 package me.wonwoo.post;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import me.wonwoo.category.Category;
 import me.wonwoo.comment.Comment;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Data
 @Entity
+@ToString(exclude = {"category", "comments"})
+@EqualsAndHashCode(exclude = {"category", "comments"})
 public class Post {
 
   @Id
