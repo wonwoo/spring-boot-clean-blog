@@ -43,12 +43,15 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
+
+		<!--thymeleaf start-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -65,10 +68,53 @@
 			<artifactId>thymeleaf-extras-java8time</artifactId>
 		</dependency>
 
+		<!--thymeleaf end-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+
+		<!--cache start-->
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>org.infinispan</groupId>-->
+			<!--<artifactId>infinispan-spring4-embedded</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.infinispan</groupId>-->
+			<!--<artifactId>infinispan-jcache</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>com.hazelcast</groupId>-->
+			<!--<artifactId>hazelcast</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.hazelcast</groupId>-->
+			<!--<artifactId>hazelcast-spring</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.ignite</groupId>-->
+			<!--<artifactId>ignite-core</artifactId>-->
+			<!--<version>1.7.0</version>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<!--cache end-->
 	</dependencies>
 
 	<build>

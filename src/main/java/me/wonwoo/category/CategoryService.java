@@ -2,6 +2,7 @@ package me.wonwoo.category;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.wonwoo.exception.NotFoundException;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.cache.annotation.CachePut;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class CategoryService {
 
   private final CategoryRepository categoryRepository;
@@ -40,7 +43,9 @@ public class CategoryService {
   }
 
   @Transactional(readOnly = true)
+  @Cacheable("blog.category")
   public Page<Category> findAll(Pageable pageable) {
+    log.info("blog.category cache");
     return categoryRepository.findAll(pageable);
   }
 

@@ -2,13 +2,20 @@ package me.wonwoo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.expiry.CreatedExpiryPolicy;
+import javax.cache.expiry.Duration;
+
 @SpringBootApplication
 @EntityScan(basePackageClasses = {SpringBootCleanBlogApplication.class, Jsr310JpaConverters.class})
+@EnableCaching
 public class SpringBootCleanBlogApplication {
 
   public static void main(String[] args) {
@@ -19,4 +26,19 @@ public class SpringBootCleanBlogApplication {
   public SpringDataDialect springDataDialect() {
     return new SpringDataDialect();
   }
+
+  @Bean
+  public JCacheManagerCustomizer cacheManagerCustomizer() {
+    return cm -> {
+      cm.createCache("blog.category", initConfiguration(Duration.ONE_MINUTE));
+    };
+  }
+
+  private MutableConfiguration<Object, Object> initConfiguration(Duration duration) {
+    return new MutableConfiguration<>()
+      .setStoreByValue(false)
+      .setStatisticsEnabled(true)
+      .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(duration));
+  }
+
 }
