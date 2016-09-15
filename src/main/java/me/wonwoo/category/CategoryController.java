@@ -1,6 +1,8 @@
 package me.wonwoo.category;
 
 import lombok.RequiredArgsConstructor;
+import me.wonwoo.config.Navigation;
+import me.wonwoo.config.Section;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-;
 
 /**
  * Created by wonwoo on 2016. 8. 24..
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/categories")
+@Navigation(Section.CATEGORY)
 public class CategoryController {
 
   private final CategoryService categoryService;

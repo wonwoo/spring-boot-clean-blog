@@ -1,6 +1,8 @@
 package me.wonwoo.index;
 
 import lombok.RequiredArgsConstructor;
+import me.wonwoo.config.Navigation;
+import me.wonwoo.config.Section;
 import me.wonwoo.post.Post;
 import me.wonwoo.post.PostRepository;
 import me.wonwoo.post.PostStatus;
@@ -22,6 +24,7 @@ import static org.springframework.data.domain.ExampleMatcher.matching;
 
 @Controller
 @RequiredArgsConstructor
+@Navigation(Section.HOME)
 public class IndexController {
 
   private final PostRepository postRepository;

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.wonwoo.category.Category;
 import me.wonwoo.category.CategoryService;
 import me.wonwoo.comment.CommentDto;
+import me.wonwoo.config.Navigation;
+import me.wonwoo.config.Section;
 import me.wonwoo.exception.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/posts")
+@Navigation(Section.POST)
 public class PostController {
 
   private final PostService postService;
