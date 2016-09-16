@@ -2,6 +2,7 @@ package me.wonwoo.comment;
 
 import lombok.RequiredArgsConstructor;
 import me.wonwoo.post.Post;
+import me.wonwoo.post.PostDto;
 import me.wonwoo.post.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
