@@ -12,6 +12,7 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 @EntityScan(basePackageClasses = {SpringBootCleanBlogApplication.class, Jsr310JpaConverters.class})
@@ -29,16 +30,14 @@ public class SpringBootCleanBlogApplication {
 
   @Bean
   public JCacheManagerCustomizer cacheManagerCustomizer() {
-    return cm -> {
-      cm.createCache("blog.category", initConfiguration(Duration.ONE_MINUTE));
-    };
+    return cm -> cm.createCache("blog.category", initConfiguration(TEN_SECONDS));
   }
+
+  public static final Duration TEN_SECONDS = new Duration(TimeUnit.SECONDS, 10);
 
   private MutableConfiguration<Object, Object> initConfiguration(Duration duration) {
     return new MutableConfiguration<>()
-      .setStoreByValue(false)
       .setStatisticsEnabled(true)
       .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(duration));
   }
-
 }

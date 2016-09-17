@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="'Sorry, ' + ${error}">Sorry, </title>
+    <style type="text/css">
+        .wrapper {
+            width: 100%;
+            text-align: center;
+        }
+        .big {
+            font-size: 100%
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper" layout:fragment="content">
+    <div class="big">
+        <h1>(๑′°︿°๑)</h1>
+        <br />
+        <h2 th:text="'Sorry, ' + ${error}"></h2>
+    </div>
+</div>
+</body>
+</html>
