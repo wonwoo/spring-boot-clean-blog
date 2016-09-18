@@ -108,8 +108,7 @@
 		<!--<dependency>-->
 			<!--<groupId>com.hazelcast</groupId>-->
 			<!--<artifactId>hazelcast-spring</artifactId>-->
-		<!--</dependency>-->4xx.html
-		5xx.html
+		<!--</dependency>-->
 
 		<!--<dependency>-->
 			<!--<groupId>org.apache.ignite</groupId>-->
@@ -120,6 +119,11 @@
 		<!--<dependency>-->
 			<!--<groupId>com.github.ben-manes.caffeine</groupId>-->
 			<!--<artifactId>caffeine</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.github.ben-manes.caffeine</groupId>-->
+			<!--<artifactId>jcache</artifactId>-->
+            <!--<version>2.3.3</version>-->
 		<!--</dependency>-->
 		<!--cache end-->
 
