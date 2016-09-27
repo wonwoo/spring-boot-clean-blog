@@ -43,7 +43,7 @@
                 <li>
                     <a href="/">Home</a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="/categories">category</a>
                 </li>
                 <li>
