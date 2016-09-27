@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import me.wonwoo.post.Post;
+import me.wonwoo.user.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,9 +29,14 @@ public class Comment {
   @JoinColumn(name = "POST_ID")
   private Post post;
 
-  public Comment(String content, Post post) {
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "USER_ID")
+  private User user;
+
+  public Comment(String content, Post post, User user) {
     this.content = content;
     this.post = post;
+    this.user = user;
   }
 
   Comment() {

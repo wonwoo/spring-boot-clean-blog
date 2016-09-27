@@ -7,6 +7,8 @@ import me.wonwoo.comment.CommentDto;
 import me.wonwoo.config.Navigation;
 import me.wonwoo.config.Section;
 import me.wonwoo.exception.NotFoundException;
+import me.wonwoo.user.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +30,7 @@ public class PostController {
   private final CategoryService categoryService;
 
   @ModelAttribute("categories")
-  public List<Category> categories(){
+  public List<Category> categories() {
     return categoryService.findAll();
   }
 
@@ -65,7 +67,7 @@ public class PostController {
   }
 
   @PostMapping
-  public String createPost(@ModelAttribute @Valid PostDto createPost, BindingResult bindingResult, Model model) {
+  public String createPost(@ModelAttribute @Valid PostDto createPost, BindingResult bindingResult, Model model, @AuthenticationPrincipal User user) {
     if (bindingResult.hasErrors()) {
       return "post/new";
     }
@@ -73,14 +75,15 @@ public class PostController {
       createPost.getContent(),
       createPost.getCode(),
       PostStatus.Y,
-      new Category(createPost.getCategoryId()));
+      new Category(createPost.getCategoryId()),
+      user);
     Post newPost = postService.createPost(post);
     model.addAttribute("post", newPost);
     return "redirect:/posts/" + newPost.getId();
   }
 
   @PostMapping("/{id}/edit")
-  public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid PostDto createPost, BindingResult bindingResult) {
+  public String modifyPost(@PathVariable Long id, @ModelAttribute("editPost") @Valid PostDto createPost, BindingResult bindingResult, @AuthenticationPrincipal User user) {
     if (bindingResult.hasErrors()) {
       return "post/edit";
     }
@@ -89,7 +92,8 @@ public class PostController {
       createPost.getContent(),
       createPost.getCode(),
       PostStatus.Y,
-      new Category(createPost.getCategoryId())
+      new Category(createPost.getCategoryId()),
+      user
     ));
     return "redirect:/posts/" + id;
   }

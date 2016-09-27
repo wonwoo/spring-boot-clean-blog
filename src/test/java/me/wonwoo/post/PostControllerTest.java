@@ -57,7 +57,7 @@ public class PostControllerTest {
 
   @Test
   public void editPost() throws Exception {
-    given(this.postService.findByIdAndStatus(anyLong(), anyObject())).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y, new Category(1L, "spring")));
+    given(this.postService.findByIdAndStatus(anyLong(), anyObject())).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y));
     MvcResult mvcResult = this.mvc.perform(get("/posts/edit/{id}", 1))
       .andExpect(status().isOk())
       .andReturn();

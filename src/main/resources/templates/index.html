@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.thymeleaf.org/spring-data"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layouts/main" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
@@ -9,7 +10,7 @@
 <!-- Main Content -->
     <div class="container" layout:fragment="content">
         <div class="row">
-            <ul class="pager">
+            <ul class="pager" sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="next">
                     <a th:href="@{/posts/new}">write</a>
                 </li>
@@ -20,7 +21,9 @@
                         <h2 class="post-title" th:text="${post.title}">
                         </h2>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> <strong th:text="${#temporals.format(post.regDate, 'yyyy-MM-dd')}"> </strong> category <strong th:text="${post.category.name}"></strong></p>
+                    <div>
+                        <p style="margin: 10px 0px;">Posted by <strong th:if="${post.user}" th:text="${post.user.name}"></strong> on <strong th:text="${#temporals.format(post.regDate, 'yyyy-MM-dd')}"> </strong> category <strong th:text="${post.category.name}"></strong></p>
+                    </div>
                 </div>
             </div>
         </div>

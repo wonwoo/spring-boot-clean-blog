@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.wonwoo.post.Post;
 import me.wonwoo.post.PostDto;
 import me.wonwoo.post.PostRepository;
+import me.wonwoo.user.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,13 +31,14 @@ public class CommentController {
   }
 
   @PostMapping
-  public String createComment(@ModelAttribute @Valid CommentDto commentDto, BindingResult bindingResult, Model model) {
+  public String createComment(@ModelAttribute @Valid CommentDto commentDto, BindingResult bindingResult, Model model, @AuthenticationPrincipal User user) {
     if (bindingResult.hasErrors()) {
       return "post/post";
     }
     model.addAttribute("comment", commentService.createComment(
       new Comment(commentDto.getContent(),
-        new Post(commentDto.getPostId()))));
+        new Post(commentDto.getPostId()),user)
+    ));
     return "redirect:/posts/" + commentDto.getPostId();
   }
 

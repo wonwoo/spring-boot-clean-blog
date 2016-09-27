@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import me.wonwoo.category.Category;
 import me.wonwoo.comment.Comment;
+import me.wonwoo.user.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -48,6 +49,11 @@ public class Post {
   @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
   private List<Comment> comments;
 
+  //// FIXME: 2016. 9. 18. 추가
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "USER_ID")
+  private User user;
+
   Post() {
   }
 
@@ -75,11 +81,12 @@ public class Post {
     this.status = status;
   }
 
-  public Post(String title, String content, String code, PostStatus status, Category category) {
+  public Post(String title, String content, String code, PostStatus status, Category category, User user) {
     this.title = title;
     this.content = content;
     this.code = code;
     this.status = status;
     this.category = category;
+    this.user = user;
   }
 }
