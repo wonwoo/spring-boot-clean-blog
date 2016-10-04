@@ -24,7 +24,7 @@ java -jar target/spring-boot-clean-blog-0.0.1-SNAPSHOT.jar
 ```
 
 ### demo
-[demo](https://spring-boot-clean-blog.herokuapp.com)
+[demo](https://spring-boot-clean-blog.herokuapp.com) (장기간 미 접속시 서버가 내려감 조금 기다려야함)
 
 ![demo image](http://wonwoo.ml/wordpress/wp-content/uploads/2016/10/9.blog26.png)
 
