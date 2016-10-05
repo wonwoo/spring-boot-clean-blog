@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import me.wonwoo.config.Navigation;
 import me.wonwoo.config.Section;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 
 /**
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 @Navigation(Section.CATEGORY)
+@EnableSpringDataWebSupport
 public class CategoryController {
 
   private final CategoryService categoryService;
@@ -45,7 +48,7 @@ public class CategoryController {
     if (bindingResult.hasErrors()) {
       return "category/new";
     }
-    categoryService.createCategory(new Category(categoryDto.getId(), categoryDto.getName()));
+    categoryService.createCategory(new Category(categoryDto.getId(), categoryDto.getName(), LocalDateTime.now()));
     return "redirect:/categories";
   }
 

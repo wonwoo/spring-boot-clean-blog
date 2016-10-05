@@ -25,7 +25,6 @@ public class CategoryService {
   private final CategoryRepository categoryRepository;
 
   public Category createCategory(Category category) {
-    category.setRegDate(LocalDateTime.now());
     return categoryRepository.save(category);
   }
 
