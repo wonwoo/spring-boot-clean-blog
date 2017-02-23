@@ -38,6 +38,10 @@ public class Category implements Serializable {
     this.id = id;
   }
 
+  public Category(String name) {
+    this.name = name;
+  }
+
   public Category(Long id, String name, LocalDateTime regDate) {
     this.name = name;
     this.id = id;
