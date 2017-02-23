@@ -2,43 +2,4 @@
 // Use by attaching the following function call to the onCursorActivity event:
 	//myCodeMirror.matchHighlight(minChars);
 // And including a special span.CodeMirror-matchhighlight css class (also optionally a separate one for .CodeMirror-focused -- see demo matchhighlighter.html)
-
-(function() {
-  var DEFAULT_MIN_CHARS = 2;
-  
-  function MatchHighlightState() {
-	this.marked = [];
-  }
-  function getMatchHighlightState(cm) {
-	return cm._matchHighlightState || (cm._matchHighlightState = new MatchHighlightState());
-  }
-  
-  function clearMarks(cm) {
-	var state = getMatchHighlightState(cm);
-	for (var i = 0; i < state.marked.length; ++i)
-		state.marked[i].clear();
-	state.marked = [];
-  }
-  
-  function markDocument(cm, className, minChars) {
-    clearMarks(cm);
-	minChars = (typeof minChars !== 'undefined' ? minChars : DEFAULT_MIN_CHARS);
-	if (cm.somethingSelected() && cm.getSelection().replace(/^\s+|\s+$/g, "").length >= minChars) {
-		var state = getMatchHighlightState(cm);
-		var query = cm.getSelection();
-		cm.operation(function() {
-			if (cm.lineCount() < 2000) { // This is too expensive on big documents.
-			  for (var cursor = cm.getSearchCursor(query); cursor.findNext();) {
-				//Only apply matchhighlight to the matches other than the one actually selected
-				if (!(cursor.from().line === cm.getCursor(true).line && cursor.from().ch === cm.getCursor(true).ch))
-					state.marked.push(cm.markText(cursor.from(), cursor.to(), className));
-			  }
-			}
-		  });
-	}
-  }
-
-  CodeMirror.defineExtension("matchHighlight", function(className, minChars) {
-    markDocument(this, className, minChars);
-  });
-})();
+!function(){function e(){this.marked=[]}function t(t){return t._matchHighlightState||(t._matchHighlightState=new e)}function n(e){for(var n=t(e),r=0;r<n.marked.length;++r)n.marked[r].clear();n.marked=[]}function r(e,r,o){if(n(e),o="undefined"!=typeof o?o:i,e.somethingSelected()&&e.getSelection().replace(/^\s+|\s+$/g,"").length>=o){var a=t(e),c=e.getSelection();e.operation(function(){if(e.lineCount()<2e3)for(var t=e.getSearchCursor(c);t.findNext();)(t.from().line!==e.getCursor(!0).line||t.from().ch!==e.getCursor(!0).ch)&&a.marked.push(e.markText(t.from(),t.to(),r))})}}var i=2;CodeMirror.defineExtension("matchHighlight",function(e,t){r(this,e,t)})}();

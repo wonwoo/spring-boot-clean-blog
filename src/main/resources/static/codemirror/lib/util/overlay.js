@@ -7,48 +7,4 @@
 // the styles are combined.
 
 // overlayParser is the old, deprecated name
-CodeMirror.overlayMode = CodeMirror.overlayParser = function(base, overlay, combine) {
-  return {
-    startState: function() {
-      return {
-        base: CodeMirror.startState(base),
-        overlay: CodeMirror.startState(overlay),
-        basePos: 0, baseCur: null,
-        overlayPos: 0, overlayCur: null
-      };
-    },
-    copyState: function(state) {
-      return {
-        base: CodeMirror.copyState(base, state.base),
-        overlay: CodeMirror.copyState(overlay, state.overlay),
-        basePos: state.basePos, baseCur: null,
-        overlayPos: state.overlayPos, overlayCur: null
-      };
-    },
-
-    token: function(stream, state) {
-      if (stream.start == state.basePos) {
-        state.baseCur = base.token(stream, state.base);
-        state.basePos = stream.pos;
-      }
-      if (stream.start == state.overlayPos) {
-        stream.pos = stream.start;
-        state.overlayCur = overlay.token(stream, state.overlay);
-        state.overlayPos = stream.pos;
-      }
-      stream.pos = Math.min(state.basePos, state.overlayPos);
-      if (stream.eol()) state.basePos = state.overlayPos = 0;
-
-      if (state.overlayCur == null) return state.baseCur;
-      if (state.baseCur != null && combine) return state.baseCur + " " + state.overlayCur;
-      else return state.overlayCur;
-    },
-    
-    indent: base.indent && function(state, textAfter) {
-      return base.indent(state.base, textAfter);
-    },
-    electricChars: base.electricChars,
-
-    innerMode: function(state) { return {state: state.base, mode: base}; }
-  };
-};
+CodeMirror.overlayMode=CodeMirror.overlayParser=function(r,e,o){return{startState:function(){return{base:CodeMirror.startState(r),overlay:CodeMirror.startState(e),basePos:0,baseCur:null,overlayPos:0,overlayCur:null}},copyState:function(o){return{base:CodeMirror.copyState(r,o.base),overlay:CodeMirror.copyState(e,o.overlay),basePos:o.basePos,baseCur:null,overlayPos:o.overlayPos,overlayCur:null}},token:function(a,s){return a.start==s.basePos&&(s.baseCur=r.token(a,s.base),s.basePos=a.pos),a.start==s.overlayPos&&(a.pos=a.start,s.overlayCur=e.token(a,s.overlay),s.overlayPos=a.pos),a.pos=Math.min(s.basePos,s.overlayPos),a.eol()&&(s.basePos=s.overlayPos=0),null==s.overlayCur?s.baseCur:null!=s.baseCur&&o?s.baseCur+" "+s.overlayCur:s.overlayCur},indent:r.indent&&function(e,o){return r.indent(e.base,o)},electricChars:r.electricChars,innerMode:function(e){return{state:e.base,mode:r}}}};
