@@ -1,7 +1,9 @@
 package me.wonwoo.github;
 
-import lombok.RequiredArgsConstructor;
-import me.wonwoo.exception.NotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,19 +13,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import me.wonwoo.exception.NotFoundException;
 
 /**
  * Created by wonwoo on 2016. 8. 23..
  */
 @Service
-@RequiredArgsConstructor
 public class GithubClient {
 
   private final RestTemplate restTemplate;
 
   private final static String GIT_HUB_URL = "https://api.github.com";
+
+  public GithubClient(RestTemplateBuilder restTemplateBuilder) {
+    this.restTemplate = restTemplateBuilder.build();
+  }
 
   @Cacheable("github.user")
   public GithubUser getUser(String githubId) {

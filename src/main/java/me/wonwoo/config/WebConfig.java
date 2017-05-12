@@ -1,14 +1,16 @@
 package me.wonwoo.config;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
 /**
  * Created by wonwoo on 2016. 9. 15..
@@ -33,4 +35,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
       }
     });
   }
+
+  @Bean
+  public SpringDataDialect springDataDialect() {
+    return new SpringDataDialect();
+  }
+
 }
