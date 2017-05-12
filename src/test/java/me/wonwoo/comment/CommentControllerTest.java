@@ -1,27 +1,21 @@
 package me.wonwoo.comment;
 
-import me.wonwoo.post.Post;
-import me.wonwoo.post.PostController;
-import me.wonwoo.post.PostControllerTest;
-import me.wonwoo.post.PostRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.*;
+import me.wonwoo.post.Post;
+import me.wonwoo.post.PostRepository;
+
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,7 +42,9 @@ public class CommentControllerTest {
   @Before
   public void setup(){
     MockitoAnnotations.initMocks(this);
-    given(postRepository.findOne(anyLong())).willReturn(new Post(1L));
+    Post post = new Post(null,null,null,null,null,null);
+    post.setId(1L);
+    given(postRepository.findOne(anyLong())).willReturn(post);
   }
 
   @Test
@@ -56,7 +52,9 @@ public class CommentControllerTest {
     Comment comment = new Comment();
     comment.setId(1L);
     comment.setContent("test");
-    comment.setPost(new Post(1L));
+    Post post = new Post(null,null,null,null,null,null);
+    post.setId(1L);
+    comment.setPost(post);
     given(commentService.createComment(comment)).willReturn(comment);
 
     this.mvc.perform(post("/comments").with(csrf())

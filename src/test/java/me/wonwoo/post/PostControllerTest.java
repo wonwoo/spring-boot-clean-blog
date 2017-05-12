@@ -1,14 +1,12 @@
 package me.wonwoo.post;
 
-import me.wonwoo.category.Category;
-import me.wonwoo.category.CategoryService;
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Arrays;
+import me.wonwoo.category.Category;
+import me.wonwoo.category.CategoryService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +52,7 @@ public class PostControllerTest {
 
   @Test
   public void findByPost() throws Exception {
-    given(this.postService.findByIdAndStatus(anyLong(), anyObject())).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y));
+    given(this.postService.findByIdAndStatus(anyLong(), anyObject())).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y, null, null));
     MvcResult mvcResult = this.mvc.perform(get("/posts/{id}", 1).with(csrf()))
       .andExpect(status().isOk())
       .andReturn();
@@ -76,7 +75,7 @@ public class PostControllerTest {
 
   @Test
   public void editPost() throws Exception {
-    final Post value = new Post("제목", "컨텐츠", "마크다운", PostStatus.Y);
+    final Post value = new Post("제목", "컨텐츠", "마크다운", PostStatus.Y, null, null);
     value.setCategory(new Category(1L, "spring"));
     given(this.postService.findByIdAndStatus(anyLong(), anyObject())).willReturn(value);
     MvcResult mvcResult = this.mvc.perform(get("/posts/edit/{id}", 1).with(csrf()))
@@ -91,14 +90,15 @@ public class PostControllerTest {
 
   @Test
   public void editPostNotFoundException() throws Exception {
-    given(this.postService.findByIdAndStatus(1L, PostStatus.Y)).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y));
+    given(this.postService.findByIdAndStatus(1L, PostStatus.Y)).willReturn(new Post("제목", "컨텐츠", "마크다운", PostStatus.Y, null, null));
     this.mvc.perform(get("/posts/edit/{id}", 2).with(csrf()))
       .andExpect(status().isNotFound());
   }
 
   @Test
   public void createPost() throws Exception {
-    Post post = new Post(1L, "제목1", "컨텐츠1", "마크다운1", PostStatus.Y);
+    Post post = new Post( "제목1", "컨텐츠1", "마크다운1", PostStatus.Y, null, null);
+    post.setId(1L);
     given(postService.createPost(any())).willReturn(post);
 
     this.mvc.perform(post("/posts").with(csrf())
@@ -121,7 +121,8 @@ public class PostControllerTest {
 
   @Test
   public void modifyPost() throws Exception {
-    Post post = new Post(1L, "제목2", "컨텐츠2", "마크다운2", PostStatus.Y);
+    Post post = new Post("제목2", "컨텐츠2", "마크다운2", PostStatus.Y, null, null);
+    post.setId(1L);
     given(postService.updatePost(any(), any())).willReturn(post);
 
     this.mvc.perform(post("/posts/{id}/edit", 1L).with(csrf())

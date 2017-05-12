@@ -1,13 +1,14 @@
 package me.wonwoo.comment;
 
-import me.wonwoo.junit.MockitoJsonJUnitRunner;
-import me.wonwoo.post.Post;
-import me.wonwoo.user.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.boot.test.json.JacksonTester;
+
+import me.wonwoo.junit.MockitoJsonJUnitRunner;
+import me.wonwoo.post.Post;
+import me.wonwoo.user.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -34,7 +35,8 @@ public class CommentServiceTests {
 
   @Test
   public void createComment() throws Exception {
-    final Comment comment = new Comment("good post", new Post(1L), new User("test" ,"test","test", "test"));
+    final Comment comment = new Comment("good post", new Post(null,null,null,null,null, null), new User("test" ,"test","test", "test"));
+    comment.setId(1L);
     given(commentRepository.save(any(Comment.class)))
       .willReturn(comment);
     final Comment result = commentService.createComment(comment);

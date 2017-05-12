@@ -33,7 +33,7 @@ public class PostServiceTests {
   @Test
   public void createPost() throws Exception {
     final Post post = new Post("post title", "post content",
-      "code", PostStatus.Y);
+      "code", PostStatus.Y, null ,null );
     given(postRepository.save(any(Post.class)))
       .willReturn(post);
 
@@ -47,7 +47,7 @@ public class PostServiceTests {
   @Test
   public void updatePost() throws Exception {
     final Post post = new Post("post title", "post content",
-      "code", PostStatus.Y);
+      "code", PostStatus.Y, null ,null);
     given(postRepository.findByIdAndStatus(any(), any()))
       .willReturn(post);
 
@@ -62,7 +62,7 @@ public class PostServiceTests {
   @Test
   public void deletePost() throws Exception {
     final Post post = new Post("post title", "post content",
-      "code", PostStatus.Y);
+      "code", PostStatus.Y, null ,null);
     given(postRepository.findByIdAndStatus(any(), any()))
       .willReturn(post);
     postService.deletePost(1L);
@@ -73,7 +73,7 @@ public class PostServiceTests {
   @Test
   public void findByIdAndStatus() throws Exception {
     final Post post = new Post("post title", "post content",
-      "code", PostStatus.Y);
+      "code", PostStatus.Y,null ,null);
     given(postRepository.findByIdAndStatus(any(), any()))
       .willReturn(post);
 
